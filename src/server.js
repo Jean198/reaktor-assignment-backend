@@ -10,6 +10,18 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 
 
+// fetching the drones data
+axios
+    .get("https://assignments.reaktor.com/birdnest/drones")
+    .then((response) => {
+      return response.data;
+    })
+    .then((data) => {
+      const dronesData = txml.simplify(txml.parse(data)).report.capture.drone;
+      console.log(dronesData);
+    })
+
+
 
 
 //Starting the server
