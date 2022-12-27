@@ -18,7 +18,22 @@ axios
     })
     .then((data) => {
       const dronesData = txml.simplify(txml.parse(data)).report.capture.drone;
-      console.log(dronesData);
+      //console.log(dronesData);
+      return dronesData
+    }).then((data) => {   //Retrieving the drone SN and using it to fetch the pilots data
+      return Promise.all(
+        data.map(async (singleDroneData) =>
+          axios
+            .get(
+              "https://assignments.reaktor.com/birdnest/pilots/" + singleDroneData.serialNumber
+            )
+            .then((response) => response.data)
+            .then((singlePilotData) => {
+              console.log(singlePilotData)
+              return singlePilotData;
+            })
+        )
+      );
     })
 
 
