@@ -80,7 +80,7 @@ setInterval(() => { // setInterval function that will fetch data every 2 seconds
           lastSeen: 0,
         };
 
-        updateDataToDisplay(drone, dataToDisplay); // using the function to add new drones to the final object or replacing existing drones that just got caught again.
+        updateDataToDisplay(drone, dataToDisplay); // using the function to add new drones to the final array or replacing existing drones that just got caught again.
       }
     });
 }, 2000);
