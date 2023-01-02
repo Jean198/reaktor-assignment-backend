@@ -19,46 +19,46 @@ const { calculateDistance, updateDataToDisplay, deletingDronesInfo } =
 //-----------------------------------------------------------------------------------------------------------
 
 // Defining variables to push data
-const dataToDisplay = [];
-var allDronesData = [];
+const dataToDisplay = []; // the last array to send to the frontend
+var allDronesData = []; //
 
 //-----------------------------------------------------------------------------------------------------------
 
 //Fetching Data every two seconds
-setInterval(() => {
+setInterval(() => { // setInterval function that will fetch data every 2 seconds
   axios
-    .get("https://assignments.reaktor.com/birdnest/drones")
+    .get("https://assignments.reaktor.com/birdnest/drones") // fetching drones information
     .then((response) => {
       return response.data;
     })
     .then((data) => {
-      const dronesData = txml.simplify(txml.parse(data)).report.capture.drone;
-      const snapshotTimestamp = txml.simplify(txml.parse(data)).report.capture
+      const dronesData = txml.simplify(txml.parse(data)).report.capture.drone;//gettting the drones data from the snapshot
+      const snapshotTimestamp = txml.simplify(txml.parse(data)).report.capture //getting the snapshot time
         ._attributes;
-      allDronesData = dronesData;
+      allDronesData = dronesData; // assigning drones data to a global variable to be used outside this scope
       allDronesData.forEach((drone) => {
         drone.snapshotTime = snapshotTimestamp.snapshotTimestamp;
       });
       return dronesData;
     })
     .then((data) => {
-      //Retrieving the drone SN and using it to fetch the pilots data
+
       return Promise.all(
         data.map(async (singleDroneData) =>
           axios
             .get(
-              "https://assignments.reaktor.com/birdnest/pilots/" +
+              "https://assignments.reaktor.com/birdnest/pilots/" + //Using the drone Serial number to fetch the corresponding pilot data
                 singleDroneData.serialNumber
             )
             .then((response) => response.data)
             .then((singlePilotData) => {
-              return singlePilotData;
+              return singlePilotData; // corresponding pilot is returned
             })
         )
       );
     })
-    .then((pilotsData) => { //Combining pilots data and drones data into one object
-      return { pilotsData: pilotsData, dronesData: allDronesData };
+    .then((pilotsData) => {
+      return { pilotsData: pilotsData, dronesData: allDronesData }; //Combining pilots data and drones data into one object
     })
     .then((data) => {
       for (let i = 0; i < data.dronesData.length; i++) {
@@ -80,14 +80,14 @@ setInterval(() => {
           lastSeen: 0,
         };
 
-        updateDataToDisplay(drone, dataToDisplay);
+        updateDataToDisplay(drone, dataToDisplay); // using the function to add new drones to the final object or replacing existing drones that just got caught again.
       }
     });
 }, 2000);
 
 //-----------------------------------------------------------------------------------------------------------
 
-//Cleaning the displayed data by removing old drones every 1/2 minute
+//Running the function that removes drones that has been seen more than 10 mins ago. This is done every 1/2 second
 setInterval(() => {
   deletingDronesInfo(dataToDisplay);
 }, 500);
