@@ -23,16 +23,19 @@ const updateDataToDisplay = (newrlycaughtDrone, dataToDisplay) => {
   if (newrlycaughtDrone.distance - 100 < 0) {
     for (var i = 0; i < dataToDisplay.length; i++) {
       if (
-        dataToDisplay[i].droneSerialNum === newrlycaughtDrone.droneSerialNum
+        dataToDisplay[i].droneSerialNum === newrlycaughtDrone.droneSerialNum // Check if the the drone is already in the array
       ) {
-        newrlycaughtDrone.snapShortAppearances =
-          dataToDisplay[i].snapShortAppearances;
-        newrlycaughtDrone.lastSeen = calculateElapsedTime(
-          new Date(),
-          newrlycaughtDrone.snapshotTime
-        );
-        newrlycaughtDrone.snapShortAppearances++;
-        dataToDisplay[i] = newrlycaughtDrone;
+        if (dataToDisplay[i].distance > newrlycaughtDrone.distance) { // compare the distances, if the new drone's distance is small, replace the old drone
+          newrlycaughtDrone.snapShortAppearances =
+            dataToDisplay[i].snapShortAppearances;
+          newrlycaughtDrone.lastSeen = calculateElapsedTime(
+            new Date(),
+            newrlycaughtDrone.snapshotTime
+          );
+          newrlycaughtDrone.snapShortAppearances++;
+          dataToDisplay[i] = newrlycaughtDrone;
+
+        }
         return;
       }
     }
@@ -52,7 +55,8 @@ const deletingDronesInfo = (dataToDisplay) => {
   );
 };
 
-module.exports = { // exporting the functions
+module.exports = {
+  // exporting the functions
   calculateDistance,
   updateDataToDisplay,
   deletingDronesInfo,

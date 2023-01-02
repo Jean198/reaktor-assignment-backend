@@ -44,7 +44,7 @@ setInterval(() => { // setInterval function that will fetch data every 2 seconds
     .then((data) => {
 
       return Promise.all(
-        data.map(async (singleDroneData) =>
+        data.map((singleDroneData) =>
           axios
             .get(
               "https://assignments.reaktor.com/birdnest/pilots/" + //Using the drone Serial number to fetch the corresponding pilot data
