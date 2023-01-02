@@ -1,4 +1,4 @@
-//Calculate the distance between drones and the nest
+//Calculate the distance between a drone and the nest
 const calculateDistance = (x1, y1, x2, y2) => {
   let y = x2 - parseFloat(x1);
   let x = y2 - parseFloat(y1);
@@ -8,9 +8,9 @@ const calculateDistance = (x1, y1, x2, y2) => {
 };
 //-----------------------------------------------------------------------------------------------------------
 
-//Calculate the elapsed time since the drone has been captured by the device
-const calculateElapsedTime = (currentTime, capturedTime) => {
-  var timeDiff = currentTime - capturedTime;
+//Calculate the elapsed time since the drone has been caught by the device
+const calculateElapsedTime = (currentTime, caughtTime) => {
+  var timeDiff = currentTime - caughtTime;
   timeDiffInMins = timeDiff / 1000 / 60;
   var minutes = Math.round(timeDiffInMins);
   return minutes;
@@ -18,26 +18,26 @@ const calculateElapsedTime = (currentTime, capturedTime) => {
 
 //-----------------------------------------------------------------------------------------------------------
 
-//Updating the existing drones information or adding new captured drones information
-const updateDataToDisplay = (newrlyCapturedDrone, dataToDisplay) => {
-  if (newrlyCapturedDrone.distance - 100 < 0) {
+//Updating the existing drones information or adding new caught drones information
+const updateDataToDisplay = (newrlycaughtDrone, dataToDisplay) => {
+  if (newrlycaughtDrone.distance - 100 < 0) {
     for (var i = 0; i < dataToDisplay.length; i++) {
       if (
-        dataToDisplay[i].droneSerialNum === newrlyCapturedDrone.droneSerialNum
+        dataToDisplay[i].droneSerialNum === newrlycaughtDrone.droneSerialNum
       ) {
-        newrlyCapturedDrone.snapShortAppearances =
+        newrlycaughtDrone.snapShortAppearances =
           dataToDisplay[i].snapShortAppearances;
-        newrlyCapturedDrone.lastSeen = calculateElapsedTime(
+        newrlycaughtDrone.lastSeen = calculateElapsedTime(
           new Date(),
-          newrlyCapturedDrone.snapshotTime
+          newrlycaughtDrone.snapshotTime
         );
-        newrlyCapturedDrone.snapShortAppearances++;
-        dataToDisplay[i] = newrlyCapturedDrone;
+        newrlycaughtDrone.snapShortAppearances++;
+        dataToDisplay[i] = newrlycaughtDrone;
         return;
       }
     }
 
-    dataToDisplay.push(newrlyCapturedDrone);
+    dataToDisplay.push(newrlycaughtDrone);
   }
 };
 
@@ -52,7 +52,7 @@ const deletingDronesInfo = (dataToDisplay) => {
   );
 };
 
-module.exports = {
+module.exports = { // exporting the functions
   calculateDistance,
   updateDataToDisplay,
   deletingDronesInfo,
