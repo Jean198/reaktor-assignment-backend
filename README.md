@@ -5,7 +5,7 @@ Link to the assignment: https://assignments.reaktor.com/birdnest
 The application is build into two separate directories:
 
 *  ### Backend:
-The backend is built with * JavaScript *, * Node js * and * Express js* framework. To run the backend, you need to run " * npm install * " to install all required packages and then " * npm start * " to start the application.
+The backend is built with **JavaScript**, **Node js** and **Express js** framework. To run the backend, you need to run " **npm install** " to install all required packages and then " **npm start** " to start the application.
 
 * ### Frontend:
 The frontend is built with JavaScript and React library. To run the application, make sure your backend is running. Then add a .env file in the root directory. In the .env file add this line REACT_APP_URL_ENDPOINT=http://localhost:5000 and type "* npm start * ".
@@ -26,7 +26,7 @@ The frontend just fetch the object sent from the backend and displays the inform
 * I am using the free plan of www.render.com, I have deployed the application in two separate projects.
 
 ## 5. Tools used
-JavaScript
-React
-Node js
-Express js
+* JavaScript
+* React
+* Node js
+* Express js
