@@ -8,7 +8,7 @@ The application is build into two separate directories:
 The backend is built with **JavaScript**, **Node js** and **Express js** framework. To run the backend, you need to run " **npm install** " to install all required packages and then " **npm start** " to start the application.
 
 * ### Frontend:
-The frontend is built with JavaScript and React library. To run the application, make sure your backend is running. Then add a .env file in the root directory. In the .env file add this line REACT_APP_URL_ENDPOINT=http://localhost:5000 and type "* npm start * ".
+The frontend is built with JavaScript and React library. To run the application, make sure your backend is running. Then add a .env file in the root directory. In the .env file add this line REACT_APP_URL_ENDPOINT=http://localhost:5000 and type "**npm start** ".
 
 ## 2. How the backend works:
 The backend uses nested axios requests.The requests are made every 2 seconds. First the snapshot with drones information is fetched. Then from the drone information I retrieve the drone Serial Number to be passed to the pilots endpoint to fetch the pilot's information.
