@@ -101,7 +101,7 @@ setInterval(() => { // setInterval function that will fetch data every 2 seconds
 setInterval(() => {
 
   deletingDronesInfo(dataToDisplay);
-}, 1000);
+}, 500);
 
 //-----------------------------------------------------------------------------------------------------------
 
