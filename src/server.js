@@ -13,16 +13,26 @@ app.use(cors());
 //-----------------------------------------------------------------------------------------------------------
 
 //Destructuring the functions
-const { calculateDistance, updateDataToDisplay, deletingDronesInfo } =
+const { calculateDistance, updateDataToDisplay, calculateElapsedTime } =
   droneFunctions;
 
 //-----------------------------------------------------------------------------------------------------------
 
 // Defining variables to push data
-const dataToDisplay = []; // the last array to send to the frontend
+var dataToDisplay = []; // the last array to send to the frontend
 var allDronesData = []; //
 
 //-----------------------------------------------------------------------------------------------------------
+
+//Remove drones that has been last seen more than ten mins ago and updating lastseen for all drones
+const deletingDronesInfo = () => {
+  dataToDisplay = dataToDisplay.filter((data) => !(calculateElapsedTime(new Date(), data.snapshotTime) > 9));
+
+  dataToDisplay.forEach(
+    (data) =>
+      (data.lastSeen = calculateElapsedTime(new Date(), data.snapshotTime))
+  );
+};
 
 //Fetching Data every two seconds
 setInterval(() => { // setInterval function that will fetch data every 2 seconds
@@ -89,8 +99,9 @@ setInterval(() => { // setInterval function that will fetch data every 2 seconds
 
 //Running the function that removes drones that has been seen more than 10 mins ago. This is done every 1/2 second
 setInterval(() => {
+
   deletingDronesInfo(dataToDisplay);
-}, 500);
+}, 1000);
 
 //-----------------------------------------------------------------------------------------------------------
 

@@ -1,3 +1,4 @@
+
 //Calculate the distance between a drone and the nest
 const calculateDistance = (x1, y1, x2, y2) => {
   let y = x2 - parseFloat(x1);
@@ -25,7 +26,8 @@ const updateDataToDisplay = (newrlycaughtDrone, dataToDisplay) => {
       if (
         dataToDisplay[i].droneSerialNum === newrlycaughtDrone.droneSerialNum // Check if the the drone is already in the array
       ) {
-        if (dataToDisplay[i].distance > newrlycaughtDrone.distance) { // compare the distances, if the new drone's distance is small, replace the old drone
+        if (dataToDisplay[i].distance > newrlycaughtDrone.distance) {
+          // compare the distances, if the new drone's distance is small, replace the old drone
           newrlycaughtDrone.snapShortAppearances =
             dataToDisplay[i].snapShortAppearances;
           newrlycaughtDrone.lastSeen = calculateElapsedTime(
@@ -34,7 +36,6 @@ const updateDataToDisplay = (newrlycaughtDrone, dataToDisplay) => {
           );
           newrlycaughtDrone.snapShortAppearances++;
           dataToDisplay[i] = newrlycaughtDrone;
-
         }
         return;
       }
@@ -45,19 +46,11 @@ const updateDataToDisplay = (newrlycaughtDrone, dataToDisplay) => {
 };
 
 //Remove drones that has been last seen more than ten mins ago and updating lastseen for all drones
-const deletingDronesInfo = (dataToDisplay) => {
-  dataToDisplay = dataToDisplay.filter(
-    (data) => !(calculateElapsedTime(new Date(), data.snapshotTime) > 10)
-  );
-  dataToDisplay.forEach(
-    (data) =>
-      (data.lastSeen = calculateElapsedTime(new Date(), data.snapshotTime))
-  );
-};
+
 
 module.exports = {
   // exporting the functions
   calculateDistance,
   updateDataToDisplay,
-  deletingDronesInfo,
+  calculateElapsedTime
 };
