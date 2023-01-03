@@ -100,7 +100,7 @@ setInterval(() => { // setInterval function that will fetch data every 2 seconds
 //Running the function that removes drones that has been seen more than 10 mins ago. This is done every 1/2 second
 setInterval(() => {
 
-  deletingDronesInfo(dataToDisplay);
+  deletingDronesInfo();
 }, 500);
 
 //-----------------------------------------------------------------------------------------------------------
