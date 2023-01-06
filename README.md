@@ -2,7 +2,7 @@
 Link to the assignment: https://assignments.reaktor.com/birdnest
 
 ## 1. Prerequisites
-The application is build into two separate directories:
+The application is separated into two separate directories:
 
 *  ### Backend:
 The backend is built with **JavaScript**, **Node js** and **Express js** framework. To run the backend, you need to run " **npm install** " to install all required packages and then " **npm start** " to start the application.
